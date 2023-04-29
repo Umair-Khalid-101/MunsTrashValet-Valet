@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "47876847230",
+    "project_id": "munstrashvalet-b6d8a",
+    "storage_bucket": "munstrashvalet-b6d8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47876847230:android:ddc73e01a4ecd852e4ca2f",
+        "android_client_info": {
+          "package_name": "com.muns.valet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47876847230-gomf31nnfi5b6o8p26midll17t78bbd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbLd447BdJ5nAjACexM2tgPMW_6kYL3Jk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47876847230-gomf31nnfi5b6o8p26midll17t78bbd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
