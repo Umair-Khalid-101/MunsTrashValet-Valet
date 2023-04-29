@@ -4,7 +4,6 @@ import {
   View,
   Image,
   SafeAreaView,
-  Platform,
   TouchableOpacity,
   TextInput,
   ScrollView,
@@ -20,6 +19,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import * as Progress from "react-native-progress";
+import * as Permissions from "expo-permissions";
 
 import {
   addDoc,
@@ -59,10 +59,27 @@ export default function Incident() {
   const placeHolder =
     "http://res.cloudinary.com/dfmhxmauj/image/upload/v1670337910/axqfk5lkxf09qsbhpspr.jpg";
 
+  // GET PERMISSIONS
+  const askPermission = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission denied",
+        "You need to grant camera permission to use this app",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+      );
+      return false;
+    }
+    return true;
+  };
+
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+    const permission = await askPermission();
+    if (!permission) {
+      return;
+    }
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
       aspect: [4, 3],
       quality: 1,

@@ -1,10 +1,4 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import * as Font from "expo-font";
 import { AntDesign } from "@expo/vector-icons";
@@ -12,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 // ASYNC STORAGE
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
