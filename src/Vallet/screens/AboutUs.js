@@ -1,10 +1,5 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import * as Font from "expo-font";
 import Back from "../../Svgs/Back";
 import React, { useState, useEffect } from "react";
@@ -26,13 +21,18 @@ export default function AboutUs() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.nav}>
-        <TouchableOpacity>
-          <View>
-            <Back
-              style={styles.back}
-              onPress={() => navigation.navigate("TabNavigation")}
-            />
-          </View>
+        <TouchableOpacity
+          style={{
+            width: "30%",
+            // backgroundColor: "blue",
+            height: 50,
+          }}
+          onPress={() => navigation.navigate("TabNavigation")}
+        >
+          <Back
+            style={styles.back}
+            onPress={() => navigation.navigate("TabNavigation")}
+          />
         </TouchableOpacity>
         {loaded ? <Text style={styles.text1}>About Us</Text> : ""}
       </View>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   nav: {
     display: "flex",
-    marginTop: 60,
+    marginTop: "5%",
   },
   back: {
     alignSelf: "flex-start",
@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 1,
     backgroundColor: "#D6D6D6",
-    marginTop: 50,
   },
   termsbox: {
     width: "93%",

@@ -1,5 +1,4 @@
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -14,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { doc, db, setDoc } from "../../services";
 import Loader from "../components/Loader";
@@ -74,13 +74,18 @@ export default function WriteUs() {
       {!isLoading && (
         <SafeAreaView style={styles.container}>
           <View style={styles.nav}>
-            <TouchableOpacity>
-              <View>
-                <Back
-                  style={styles.back}
-                  onPress={() => navigation.navigate("TabNavigation")}
-                />
-              </View>
+            <TouchableOpacity
+              style={{
+                width: "30%",
+                // backgroundColor: "blue",
+                height: 50,
+              }}
+              onPress={() => navigation.navigate("TabNavigation")}
+            >
+              <Back
+                style={styles.back}
+                onPress={() => navigation.navigate("TabNavigation")}
+              />
             </TouchableOpacity>
             {loaded ? <Text style={styles.text1}>Write To Us</Text> : ""}
           </View>
@@ -128,7 +133,7 @@ const styles = StyleSheet.create({
   },
   nav: {
     display: "flex",
-    marginTop: 60,
+    marginTop: "5%",
   },
   back: {
     alignSelf: "flex-start",
@@ -147,7 +152,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 1,
     backgroundColor: "#D6D6D6",
-    marginTop: 50,
   },
   termsbox: {
     width: "93%",

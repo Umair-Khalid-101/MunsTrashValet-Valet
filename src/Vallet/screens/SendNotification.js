@@ -289,6 +289,7 @@ export default function SendNotification() {
       sendingDate: dateString,
       NotifCount: count + 1,
       sentTo: route,
+      timestamp,
     };
     await setDoc(doc(db, "notifications", timestamp.toString()), docRef);
 
@@ -346,12 +347,14 @@ export default function SendNotification() {
     <>
       {!isLoading && (
         <SafeAreaView style={styles.container}>
-          <View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("TabNavigation")}
+          >
             <Back
               style={styles.back}
               onPress={() => navigation.navigate("TabNavigation")}
             />
-          </View>
+          </TouchableOpacity>
           <Text style={styles.heading}>Send Notifications</Text>
           <ScrollView>
             <View style={styles.redbutton}>

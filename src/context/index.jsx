@@ -11,6 +11,7 @@ export const StateContextProvider = ({ children }) => {
   const [storedCredentials, setStoredCredentials] = useState();
   const [route, setRoute] = useState();
   const [appReady, setAppReady] = useState(false);
+  const [updatingToken, setUpdatingToken] = useState(false);
 
   return (
     <StateContext.Provider
@@ -29,6 +30,8 @@ export const StateContextProvider = ({ children }) => {
         setRoute,
         appReady,
         setAppReady,
+        updatingToken,
+        setUpdatingToken,
       }}
     >
       {children}

@@ -293,10 +293,12 @@ export default function Incident() {
                   <Image
                     source={source}
                     style={{
-                      width: 100,
-                      height: 100,
-                      borderRadius: 50,
-                      marginTop: "2%",
+                      width: "90%",
+                      height: 200,
+                      marginTop: "5%",
+                      marginBottom: "5%",
+                      borderRadius: 8,
+                      resizeMode: "contain",
                     }}
                   />
                 </View>

@@ -1,23 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import LandingPage from "../Vallet/screens/LandingPage";
 import { AntDesign } from "@expo/vector-icons";
-import Setting from "../Vallet/screens/Setting";
-import IncidentReports from "../Vallet/screens/IncidentReports";
-import AllIncidents from "../Vallet/screens/AllIncidents";
 import * as Font from "expo-font";
-import NotificationsDetail from "../Vallet/screens/NotificationsDetail";
+import * as Notifications from "expo-notifications";
 import { useFocusEffect } from "@react-navigation/native";
+
+import LandingPage from "../Vallet/screens/LandingPage";
+import Setting from "../Vallet/screens/Setting";
+import PickUpReq from "../Vallet/screens/PickUpReq";
+import AllIncidents from "../Vallet/screens/AllIncidents";
+import NotificationsDetail from "../Vallet/screens/NotificationsDetail";
+
 // ASYNC STORAGE
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import Loader from "../Vallet/components/Loader";
 import { useStateContext } from "../context";
+import { useNotifications } from "../services/pushNotifs";
 
 const TabNavigation = () => {
-  const { setRoute, setCount } = useStateContext();
-  const Tab = createBottomTabNavigator();
-  const [loaded, setloaded] = useState(false);
+  const { setRoute, setCount, storedCredentials, updatingToken } =
+    useStateContext();
   const [isLoading, setIsLoading] = useState(false);
+  const [loaded, setloaded] = useState(false);
+
+  const { registerForPushNotificationsAsync, handleNotificationResponse } =
+    useNotifications();
+  const Tab = createBottomTabNavigator();
 
   const loadfonts = async () => {
     await Font.loadAsync({
@@ -34,6 +43,26 @@ const TabNavigation = () => {
       loadfonts();
       checkData();
       checkCount();
+      registerForPushNotificationsAsync();
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true,
+          shouldPlaySound: true,
+          shouldSetBadge: true,
+        }),
+      });
+      // notificationListener.current =
+      //   Notifications.addNotificationReceivedListener();
+      const responseListener =
+        Notifications.addNotificationResponseReceivedListener(
+          handleNotificationResponse
+        );
+
+      return () => {
+        if (responseListener) {
+          Notifications.removeNotificationSubscription(responseListener);
+        }
+      };
     }, [])
   );
 
@@ -73,7 +102,7 @@ const TabNavigation = () => {
 
   return (
     <>
-      {!isLoading && (
+      {!updatingToken && (
         <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -87,6 +116,8 @@ const TabNavigation = () => {
                 iconName = focused ? "bells" : "bells";
               } else if (route.name === "Settings") {
                 iconName = focused ? "setting" : "setting";
+              } else if (route.name === "PickUpReq") {
+                iconName = focused ? "delete" : "delete";
               }
 
               // You can return any component that you like here!
@@ -111,6 +142,11 @@ const TabNavigation = () => {
           />
 
           <Tab.Screen
+            name="PickUpReq"
+            component={PickUpReq}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
             name="NotificationsDetail"
             component={NotificationsDetail}
             options={{ headerShown: false }}
@@ -122,7 +158,7 @@ const TabNavigation = () => {
           />
         </Tab.Navigator>
       )}
-      {isLoading && <Loader title={"Getting Data..."} />}
+      {updatingToken && <Loader title={"Getting Data..."} />}
     </>
   );
 };

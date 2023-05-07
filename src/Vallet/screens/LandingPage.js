@@ -21,7 +21,7 @@ import { useStateContext } from "../../context";
 import Loader from "../components/Loader";
 
 function LandingPage(props) {
-  const { setCount, route } = useStateContext();
+  const { setCount, route, updatingToken } = useStateContext();
   const navigation = useNavigation();
   const [loaded, setloaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -79,7 +79,7 @@ function LandingPage(props) {
 
   return (
     <>
-      {!isLoading && (
+      {!isLoading && !updatingToken && (
         <SafeAreaView style={styles.container}>
           <View style={styles.logo}>
             <Vector />
@@ -183,6 +183,7 @@ function LandingPage(props) {
         </SafeAreaView>
       )}
       {isLoading && <Loader title={"Getting Data..."} />}
+      {updatingToken && <Loader title={"Getting Data..."} />}
     </>
   );
 }

@@ -97,6 +97,7 @@ function ValetSignIn(props) {
             const User = doc?.data();
             console.log("USER:", User);
             setUser(User);
+            setStoredCredentials(User);
             persistUser(User);
             setIsLoading(false);
             if (User?.role === "valet" && User?.status === "Active") {

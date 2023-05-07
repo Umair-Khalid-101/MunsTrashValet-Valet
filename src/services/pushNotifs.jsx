@@ -14,10 +14,12 @@ import {
 } from "../services/index";
 
 export const useNotifications = () => {
-  const { token, setToken, user } = useStateContext();
-  // console.log("USER:", user);
+  const { token, setToken, user, storedCredentials, setUpdatingToken } =
+    useStateContext();
+  console.log("storedCredentials:", storedCredentials);
 
   const registerForPushNotificationsAsync = async () => {
+    setUpdatingToken(true);
     let token;
     if (Device.isDevice) {
       const { status: existingStatus } =
@@ -29,6 +31,7 @@ export const useNotifications = () => {
       }
       if (finalStatus !== "granted") {
         alert("Failed to get push token for push notification!");
+        setUpdatingToken(false);
         return;
       }
       try {
@@ -38,31 +41,36 @@ export const useNotifications = () => {
 
         const q = query(
           collection(db, "users"),
-          where("email", "==", user.email)
+          where("email", "==", storedCredentials?.email)
         );
         let docid = "";
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot?.empty) {
-          Alert.alert("No User Foun!");
+          Alert.alert("Unable to Update Notification Token!");
+          setUpdatingToken(false);
+          return;
         }
 
         querySnapshot?.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          // console.log(doc.id, " => ", doc.data());
+          console.log(doc.id, " => ", doc.data());
           docid = doc?.id;
         });
 
-        // console.log("Email: ", user.email);
+        console.log("Email: ", user.email);
         const washingtonRef = doc(db, "users", docid);
         await updateDoc(washingtonRef, {
           NotifToken: token,
         });
+        setUpdatingToken(false);
       } catch (error) {
         console.error(error);
+        setUpdatingToken(false);
       }
     } else {
       alert("Must use physical device for Push Notifications");
+      setUpdatingToken(false);
     }
 
     if (Platform.OS === "android") {
