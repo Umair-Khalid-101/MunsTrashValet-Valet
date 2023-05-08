@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -27,16 +25,11 @@
         "backgroundColor": "#FFFFFF"
       },
       "projectNumber": "47876847230",
-      "googleServicesFile": "./google-services.json",
-      "package": "com.muns.valet"
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "3f224ed5-d401-4d46-8246-e6cf7872b192"
-      }
-    }
+    "extra": {}
   }
 }
