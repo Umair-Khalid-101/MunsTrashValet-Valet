@@ -58,7 +58,7 @@ export const useNotifications = () => {
           docid = doc?.id;
         });
 
-        console.log("Email: ", user.email);
+        console.log("Email: ", storedCredentials?.email);
         const washingtonRef = doc(db, "users", docid);
         await updateDoc(washingtonRef, {
           NotifToken: token,

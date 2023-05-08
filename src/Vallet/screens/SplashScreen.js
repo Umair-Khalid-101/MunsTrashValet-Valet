@@ -28,10 +28,10 @@ const SplashScreen = ({ navigation }) => {
       .then((result) => {
         if (result !== null) {
           setStoredCredentials(JSON.parse(result));
-          navigation.navigate("TabNavigation");
+          navigation.replace("TabNavigation");
         } else {
           setStoredCredentials(null);
-          navigation.navigate("MainScreen");
+          navigation.replace("MainScreen");
         }
       })
       .catch((error) => {

@@ -73,7 +73,7 @@ const MainScreen = () => {
       <View style={styles.button}>
         <TouchableOpacity
           style={styles.getstarted}
-          onPress={() => navigation.navigate("ValetSignIn")}
+          onPress={() => navigation.replace("ValetSignIn")}
         >
           {loaded ? <Text style={styles.getstartedtext}>Get Started</Text> : ""}
         </TouchableOpacity>

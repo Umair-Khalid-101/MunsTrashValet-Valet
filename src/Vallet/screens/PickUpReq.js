@@ -177,7 +177,7 @@ export default function PickUpReq() {
           </Text>
         </SafeAreaView>
       )}
-      {isLoading && <Loader title={"Getting Notification Details..."} />}
+      {isLoading && <Loader title={"Getting PickUp Requests..."} />}
     </>
   );
 }

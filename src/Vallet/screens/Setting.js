@@ -68,7 +68,7 @@ export default function Setting() {
             console.log(error);
           });
       })
-      .then(() => navigation.navigate("MainScreen"))
+      .then(() => navigation.replace("MainScreen"))
       .catch((error) => {
         console.log(error);
       });

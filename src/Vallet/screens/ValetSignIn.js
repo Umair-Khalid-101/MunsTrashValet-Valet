@@ -102,7 +102,7 @@ function ValetSignIn(props) {
             setIsLoading(false);
             if (User?.role === "valet" && User?.status === "Active") {
               // Alert.alert("Success!", "Signed In as Valet!");
-              navigation.navigate("TabNavigation");
+              navigation.replace("TabNavigation");
             } else {
               Alert.alert("Error!", "Make sure You're a Valet to Sign IN");
             }

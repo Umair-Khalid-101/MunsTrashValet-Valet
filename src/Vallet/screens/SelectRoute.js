@@ -58,7 +58,7 @@ export default function SelectRoute() {
       )}
       <TouchableOpacity
         style={styles.Homebutton}
-        onPress={() => navigation.navigate("LandingPage")}
+        onPress={() => navigation.navigate("TabNavigation")}
       >
         <Text style={styles.buttonText}>Home</Text>
       </TouchableOpacity>

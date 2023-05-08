@@ -4,7 +4,7 @@
     "slug": "valet",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/appicon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/hmm.png",
@@ -35,7 +35,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "b9719d0b-9282-4a36-8eac-639325e0bcf4"
+        "projectId": "3f224ed5-d401-4d46-8246-e6cf7872b192"
       }
     }
   }
