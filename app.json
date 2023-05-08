@@ -4,7 +4,7 @@
     "slug": "valet",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/appicon.png",
+    "icon": "./assets/icon.svg",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/hmm.png",
@@ -25,11 +25,16 @@
         "backgroundColor": "#FFFFFF"
       },
       "projectNumber": "47876847230",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "package": "com.muns.valet"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {}
+    "extra": {
+      "eas": {
+        "projectId": "7126a3a4-0dc7-47e9-9436-044d534ac383"
+      }
+    }
   }
 }
