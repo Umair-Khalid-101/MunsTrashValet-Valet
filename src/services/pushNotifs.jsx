@@ -35,35 +35,67 @@ export const useNotifications = () => {
         return;
       }
       try {
-        token = (await Notifications.getDevicePushTokenAsync()).data;
-        console.log("Token: ", token);
-        setToken(token);
+        if (Platform.OS === "ios") {
+          token = (await Notifications.getExpoPushTokenAsync()).data;
+          console.log("Token: ", token);
+          setToken(token);
 
-        const q = query(
-          collection(db, "users"),
-          where("email", "==", storedCredentials?.email)
-        );
-        let docid = "";
-        const querySnapshot = await getDocs(q);
+          const q = query(
+            collection(db, "users"),
+            where("email", "==", storedCredentials?.email)
+          );
+          let docid = "";
+          const querySnapshot = await getDocs(q);
 
-        if (querySnapshot?.empty) {
-          Alert.alert("Unable to Update Notification Token!");
+          if (querySnapshot?.empty) {
+            Alert.alert("Unable to Update Notification Token!");
+            setUpdatingToken(false);
+            return;
+          }
+
+          querySnapshot?.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            docid = doc?.id;
+          });
+
+          console.log("Email: ", storedCredentials?.email);
+          const washingtonRef = doc(db, "users", docid);
+          await updateDoc(washingtonRef, {
+            expoToken: token,
+          });
           setUpdatingToken(false);
-          return;
+        } else {
+          token = (await Notifications.getDevicePushTokenAsync()).data;
+          console.log("Token: ", token);
+          setToken(token);
+
+          const q = query(
+            collection(db, "users"),
+            where("email", "==", storedCredentials?.email)
+          );
+          let docid = "";
+          const querySnapshot = await getDocs(q);
+
+          if (querySnapshot?.empty) {
+            Alert.alert("Unable to Update Notification Token!");
+            setUpdatingToken(false);
+            return;
+          }
+
+          querySnapshot?.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            docid = doc?.id;
+          });
+
+          console.log("Email: ", storedCredentials?.email);
+          const washingtonRef = doc(db, "users", docid);
+          await updateDoc(washingtonRef, {
+            NotifToken: token,
+          });
+          setUpdatingToken(false);
         }
-
-        querySnapshot?.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
-          docid = doc?.id;
-        });
-
-        console.log("Email: ", storedCredentials?.email);
-        const washingtonRef = doc(db, "users", docid);
-        await updateDoc(washingtonRef, {
-          NotifToken: token,
-        });
-        setUpdatingToken(false);
       } catch (error) {
         console.error(error);
         setUpdatingToken(false);
